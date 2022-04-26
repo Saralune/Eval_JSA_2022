@@ -1,0 +1,71 @@
+/**
+ * 
+ */
+package fr.fms.business;
+
+import java.util.ArrayList;
+
+import fr.fms.entities.Book;
+import fr.fms.entities.Category;
+
+/**
+ * @author Stagiaires10P
+ *
+ */
+public interface IBookShop {
+	
+	/**
+	 * method to add a book on the user cart
+	 * @param book 
+	 */
+	public void addToCart(Book book);
+	
+	/**
+	 * This remove book (found by id) from cart
+	 * @param idBook
+	 */
+	public void removeFromCart(int idBook);
+	
+	/**
+	 * this method is used when user wants to validate is order
+	 * - method checks if user exists in DB
+	 * - it checks payment info of user
+	 * - it creates order in DB
+	 * - it remove items from cart
+	 * @param idUser
+	 * @return boolean
+	 */
+	public boolean pay(int idUser);
+	
+	/**
+	 * return all elements of cart
+	 * @return ArrayList of elements in cart
+	 */
+	public ArrayList<Book> getCart();
+	
+	/**
+	 * it returns all books saved in table Book, in DB
+	 * @return ArrayList of books
+	 */
+	public ArrayList<Book> readBooks();
+	
+	/**
+	 * method that returns a book
+	 * @param idBook - id a the book in DB
+	 * @return Book
+	 */
+	public Book getBookById(int idBook);
+	
+	/**
+	 * method that return a list of all categories in DB
+	 * @return ArrayList of category
+	 */
+	public ArrayList<Category> readCategories();
+	
+	/**
+	 * method that return a list of all book which have id cat in DB
+	 * @param idCat
+	 * @return ArrayList of Book
+	 */
+	public ArrayList<Book> readBooksByCatId(int idCat);
+}
