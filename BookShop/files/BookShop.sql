@@ -39,7 +39,7 @@ CREATE TABLE cust_ORDER(
 	id_order		int(4) PRIMARY KEY AUTO_INCREMENT,
 	amount 		FLOAT(10) NOT NULL,
 	DATE 			DATE(20) NOT NULL,
-	idUser		INT(4)
+	id_user		INT(4)
 );
 
 ALTER TABLE cust_order ADD FOREIGN KEY (id_user) REFERENCES user(id_user);
@@ -52,6 +52,19 @@ CREATE TABLE order_detail(
 	qty				INT(4) NOT NULL,
 	date_order		DATE NOT NULL,
 	unitary_price 	float(4) NOT NULL,
-	amount			FLOAT(4) NOT NULL,
 );
+
+#En console, pour restreindre les droits :
+
+#create user 'sara'@'localhost' identified by '123';
+#grant all privileges on bookshop.* to 'sara'@'localhost';
+#flush privileges;
+#mysql -u sara -p
+# show grants for 'sara'@'localhost';
+
+INSERT INTO user () VALUES (); 
+INSERT INTO user () VALUES (); 
+
+INSERT INTO admin () VALUES (); 
+INSERT INTO customer () VALUES ();
 
