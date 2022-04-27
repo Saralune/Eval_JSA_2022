@@ -30,7 +30,7 @@ public class OrderDetailDao implements Dao<OrderDetail> {
 			ps.setInt(3, obj.getIdBook());
 			ps.setString(4, obj.getBookName());
 			ps.setInt(5, obj.getQty());
-			ps.setDate(6, (Date) obj.getDate());
+			ps.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
 			ps.setDouble(7, obj.getUnitaryPrice());
 			
 			ps.executeUpdate();			
@@ -103,7 +103,7 @@ public class OrderDetailDao implements Dao<OrderDetail> {
 			}
 		} catch (SQLException e) {
 			//e.printStackTrace();
-			logger.severe("pb Sql :" + e);
+			logger.severe("Problème SQL :" + e);
 		}			
 		return orderDetail;
 	}

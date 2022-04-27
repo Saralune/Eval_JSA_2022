@@ -252,6 +252,7 @@ public class BookShopApp {
 				String answer = scan.next();
 				
 				if(answer.equalsIgnoreCase("oui")) {
+					business.pay(idUser);
 					System.out.println("Votre commande a bien été validée.");
 					business.resetCart();
 				}
@@ -279,8 +280,48 @@ public class BookShopApp {
 				login = log;
 				idUser = id;
 			}
+			else {
+				System.out.println("Login ou mot de passe incorrect.");
+			}
 			
-			else System.out.println("Login ou mot de passe incorrect.");
+//			else {
+//				System.out.println("Login ou mot de passe incorrect. Souhaitez-vous créer un compte ? Taper oui pour créer un compte.");
+//				String answer = scan.next();
+//				
+//				if(answer.equalsIgnoreCase("oui")) {
+//					createAccountUser();
+//				}
+//			}
+		}
+	}
+	
+	public static void createAccountUser() {
+		System.out.println("Saisir votre nom : ");
+		String name = scan.next();
+		
+		System.out.println("Saisir votre prénom : ");
+		String firstName = scan.next();
+		
+		System.out.println("Saisir votre login : ");
+		String login = scan.next();
+		
+		System.out.println("Saisir votre mot de passe : ");
+		String password = scan.next();
+		
+		System.out.println("Saisir votre email : ");
+		String email = scan.next();
+		
+		System.out.println("Saisir votre téléphone : ");
+		String tel = scan.next();
+		
+		System.out.println("Saisir votre adresse : ");
+		String address = scan.next();
+		
+		User user = new User(login, password, name, firstName, email, tel, address);
+		business.createUser(user);
+		
+		if(business.createUser(user)) {
+			System.out.println("Votre compte a bien été créé.");
 		}
 	}
 }

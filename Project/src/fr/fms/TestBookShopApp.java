@@ -39,13 +39,14 @@ public class TestBookShopApp {
 		System.out.println("----");
 		 
 		//order1.create(new Order(10.5, new Date(), 1));
+		//new OrderDao().create(new Order(53.5, new Date(), 3));
 		Order order1 = new OrderDao().read(1); 
 		Book book1 = new BookDao().read(1);
 		Book book2 = new BookDao().read(2);
 		//new OrderDetailDao().create(new OrderDetail(order1.getIdOrder(), order1.getIdUser(), book2.getIdBook(), book2.getName(), 1, order1.getDateOrder(), book2.getPrice()));
 		//System.out.println(new OrderDao().read(1));
 		System.out.println(new OrderDetailDao().readOneOrder(1));
-		//System.out.println(new OrderDetailDao().readAll());
+		System.out.println(new OrderDetailDao().readAll());
 	}
 
 	//display all users from DB

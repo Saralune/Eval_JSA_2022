@@ -65,6 +65,7 @@ public class IBookShopImpl implements IBookShop {
 			double total = getTotal(); 
 			
 			Order order = new Order(total, new Date(), idUser);
+			
 			if(orderDao.create(order)) {	//ajout en base de la commande
 				
 				for(Book book : cart.values()) {	//ajout des commandes minifiées associées
@@ -148,5 +149,9 @@ public class IBookShopImpl implements IBookShop {
 			if(user.getLogin().equalsIgnoreCase(log) && user.getPassword().equals(pwd))
 				return user.getIdUser();
 		return 0;
+	}
+	
+	public boolean createUser(User user) {
+		return userDao.create(user);
 	}
 }
