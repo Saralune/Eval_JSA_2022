@@ -3,14 +3,19 @@
  */
 package fr.fms;
 
+import java.util.Date;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
 import fr.fms.dao.BookDao;
 import fr.fms.dao.Dao;
 import fr.fms.dao.DaoFactory;
+import fr.fms.dao.OrderDao;
+import fr.fms.dao.OrderDetailDao;
 import fr.fms.dao.UserDao;
 import fr.fms.entities.Book;
+import fr.fms.entities.Order;
+import fr.fms.entities.OrderDetail;
 import fr.fms.entities.User;
 
 /**
@@ -27,8 +32,20 @@ public class TestBookShopApp {
 		
 		//testUserDao();
 		//testUserBook();
-		testBookDao();
+		//testBookDao();
 		//testDaoFactory();
+		
+		System.out.println(new BookDao().readAllByCat(11));
+		System.out.println("----");
+		 
+		//order1.create(new Order(10.5, new Date(), 1));
+		Order order1 = new OrderDao().read(1); 
+		Book book1 = new BookDao().read(1);
+		Book book2 = new BookDao().read(2);
+		//new OrderDetailDao().create(new OrderDetail(order1.getIdOrder(), order1.getIdUser(), book2.getIdBook(), book2.getName(), 1, order1.getDateOrder(), book2.getPrice()));
+		//System.out.println(new OrderDao().read(1));
+		System.out.println(new OrderDetailDao().readOneOrder(1));
+		//System.out.println(new OrderDetailDao().readAll());
 	}
 
 	//display all users from DB

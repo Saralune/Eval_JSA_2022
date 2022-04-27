@@ -12,19 +12,19 @@ import java.util.Date;
 public class Order {
 	private int idOrder;
 	private double amount;
-	private Date date;
+	private Date dateOrder;
 	private int idUser;
 
-	/**
-	 * @param idOrder
-	 * @param amount
-	 * @param date
-	 * @param idUser
-	 */
 	public Order(int idOrder, double amount, Date date, int idUser) {
 		setIdOrder(idOrder);
 		setAmount(amount);
-		setDate(date);
+		setDateOrder(date);
+		setIdUser(idUser);
+	}
+	
+	public Order(double amount, Date date, int idUser) {
+		setAmount(amount);
+		setDateOrder(date);
 		setIdUser(idUser);
 	}
 	
@@ -55,14 +55,14 @@ public class Order {
 	/**
 	 * @return the date
 	 */
-	public Date getDate() {
-		return date;
+	public Date getDateOrder() {
+		return dateOrder;
 	}
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateOrder(Date dateOrder) {
+		this.dateOrder = dateOrder;
 	}
 	/**
 	 * @return the idUser
@@ -79,7 +79,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [idOrder=" + idOrder + ", amount=" + amount + ", date=" + date + ", idUser=" + idUser + "]";
+		return "Order [idOrder=" + idOrder + ", amount=" + amount + ", dateOrder=" + dateOrder + ", idUser=" + idUser + "]";
 	}
 	
 }

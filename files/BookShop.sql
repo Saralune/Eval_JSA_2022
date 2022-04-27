@@ -35,21 +35,31 @@ CREATE TABLE admin (
 CREATE TABLE u_order(
 	id_order		int(4) PRIMARY KEY AUTO_INCREMENT,
 	amount 		FLOAT(10) NOT NULL,
-	DATE 			DATE(20) NOT NULL,
+	DATE 			DATE NOT NULL,
 	id_user		INT(4)
 );
 
+alter table u_order drop COLUMN date;
+ALTER TABLE u_order ADD date_order DATETime NOT NULL AFTER amount;
 ALTER TABLE u_order ADD FOREIGN KEY (id_user) REFERENCES user(id_user);
 
+SELECT * FROM u_order;
+
 CREATE TABLE order_detail(
-	id_order 		INT(4) NOT NULL,
-	id_user 			INT(4) NOT NULL,
-	id_book 			INT(4) NOT NULL,
+	id_order 		INT(4),
+	id_user 			INT(4),
+	id_book 			INT(4),
 	book_name		VARCHAR(30) NOT NULL,
-	qty				INT(4) NOT NULL,
+	qty				INT(4) NOT NULL DEFAULT 0,
 	date_order		DATE NOT NULL,
-	unitary_price 	float(4) NOT NULL,
+	unitary_price 	float(4) NOT NULL DEFAULT 0
 );
+
+SELECT * FROM order_detail;
+
+ALTER TABLE order_detail ADD FOREIGN KEY (id_order) REFERENCES u_order(id_order);
+ALTER TABLE order_detail ADD FOREIGN KEY (id_user) REFERENCES user(id_user);
+ALTER TABLE order_detail ADD FOREIGN KEY (id_book) REFERENCES book(id_book);
 
 #En console, pour restreindre les droits :
 
@@ -96,3 +106,5 @@ INSERT INTO book (author, book_name, price, id_cat1, id_cat2, id_cat3)
 	VALUES ("Anonyme", "Santa Mondega", 23, 1, 7, 11);
 INSERT INTO book (author, book_name, price, id_cat1, id_cat2) 
 	VALUES ("Byron Barton", "La voiture", 5.5, 2, 4);
+	
+SELECT * FROM u_order;
