@@ -126,4 +126,7 @@ public class IBookShopImpl implements IBookShop {
 		return total[0];
 	}
 
+	public String getCatNameById(int id) {
+		return categoryDao.read(id).getName();
+	}
 }
