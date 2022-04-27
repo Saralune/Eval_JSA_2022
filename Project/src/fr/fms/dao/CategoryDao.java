@@ -32,7 +32,7 @@ public class CategoryDao implements Dao<Category> {
 	}
 
 	@Override
-	public boolean delete(Category obj) {
+	public boolean delete(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

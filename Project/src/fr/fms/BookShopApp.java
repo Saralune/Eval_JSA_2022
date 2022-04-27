@@ -8,5 +8,7 @@ package fr.fms;
  *
  */
 public class BookShopApp {
-
+	public static void main(String[] args) {
+		
+	}
 }

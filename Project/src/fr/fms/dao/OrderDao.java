@@ -32,7 +32,7 @@ public class OrderDao implements Dao<Order> {
 	}
 
 	@Override
-	public boolean delete(Order obj) {
+	public boolean delete(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

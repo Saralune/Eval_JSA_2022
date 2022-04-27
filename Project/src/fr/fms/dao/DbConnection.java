@@ -27,17 +27,18 @@ public class DbConnection {
 	private DbConnection() {	
 		try {
 			//config file is read 
-			prop = CreateConfigFile.readPropertiesFile("config.properties");	
-								
+			prop = CreateConfigFile.readPropertiesFile("config.properties");
+			
+			driver = prop.getProperty("db.driver.class");
+			url = prop.getProperty("db.url");
+			login = prop.getProperty("db.login");
+			password = prop.getProperty("db.password");
+			
 			//driver charged
 			Class.forName(driver);	
 			//create connection
 			connection = DriverManager.getConnection(url,login,password);	
 			
-			driver = prop.getProperty("db.driver");
-			url = prop.getProperty("db.url");
-			login = prop.getProperty("db.login");
-			password = prop.getProperty("db.password");
 		}			
 		catch (ClassNotFoundException | SQLException e) {
 			System.out.println("Problème de connexion !" + e.getMessage());
@@ -63,4 +64,5 @@ public class DbConnection {
 		else System.out.println("La connexion a déjà été crée." + connection.toString());
 		return connection;
 	}
+
 }

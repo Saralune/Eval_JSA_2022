@@ -113,8 +113,23 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [idBook=" + idBook + ", author=" + author + ", name=" + name + ", price=" + price + ", idCat1="
-				+ idCat1 + ", idCat2=" + idCat2 + ", idCat3=" + idCat3 + "]";
+		String str ="Book [idBook=" + idBook + ", author=" + author + ", name=" + name + ", price=" + price;
+		
+		if(getIdCat1() != 0) {
+			str += ", idCat1="+ idCat1;
+		} 
+		
+		if(getIdCat2() != 0) {
+			str += ", idCat2="+ idCat2;
+		} 
+
+		if(getIdCat3() != 0) {
+			str += ", idCat3="+ idCat3;
+		}
+		
+		str += "]";
+		
+		return str;
 	}
 	
 }

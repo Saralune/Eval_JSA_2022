@@ -41,7 +41,7 @@ public interface Dao<T> {
 	 * @param object
 	 * @return boolean : true if done, false if not
 	 */
-	public boolean delete(T obj);	
+	public boolean delete(int id);	
 	
 	/**
 	 * return all objects in table in DB

@@ -8,12 +8,15 @@ package fr.fms.entities;
  *
  */
 public class Admin extends User {
-	private String name;
 	
-	public Admin(int idUser, String login, String password, String name) {
-		super(idUser, login, password);
-		setName(name);
+	///
+	
+	public Admin(String login, String password, String name, String firstName, String email, String tel,
+			String address) {
+		super(login, password, name, firstName, email, tel, address);
 	}
+
+	private String name;
 
 	/**
 	 * @return the name
