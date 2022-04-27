@@ -14,7 +14,7 @@ import fr.fms.entities.User;
  *
  */
 public class DaoFactory {
-	public static Dao<Book> getArticleDao() {
+	public static Dao<Book> getBookDao() {
 		return new BookDao();		
 	}
 	

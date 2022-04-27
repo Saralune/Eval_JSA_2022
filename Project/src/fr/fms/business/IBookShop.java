@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import fr.fms.entities.Book;
 import fr.fms.entities.Category;
+import fr.fms.entities.OrderDetail;
 
 /**
  * @author Stagiaires10P
@@ -68,4 +69,12 @@ public interface IBookShop {
 	 * @return ArrayList of Book
 	 */
 	public ArrayList<Book> readBooksByCatId(int idCat);
+	
+	/**
+	 * return a list of books contains in order
+	 * @param idOrder
+	 * @return list of detail of order
+	 */
+	public ArrayList<OrderDetail> readOrderDetail(int idOrder);
+	
 }

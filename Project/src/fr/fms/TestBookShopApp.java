@@ -113,7 +113,7 @@ public class TestBookShopApp {
 		Dao<User> userDao = DaoFactory.getUserDao();
 			
 		Predicate<Book> bookPredicate = a -> a.getIdBook()>= 5 && (a.getPrice() > 1 && a.getPrice() < 100); 
-		DaoFactory.getArticleDao().readAll()
+		DaoFactory.getBookDao().readAll()
 					.stream()
 					.filter(bookPredicate)
 					.forEach(System.out::println);

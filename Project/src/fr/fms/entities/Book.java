@@ -16,6 +16,8 @@ public class Book {
 	private int idCat2;
 	private int idCat3;
 	
+	private int qty = 1;
+	
 	public Book(int idBook, String author, String name, double price, int idCat1, int idCat2, int idCat3) {
 		setIdBook(idBook);
 		setAuthor(author);
@@ -24,6 +26,17 @@ public class Book {
 		setIdCat1(idCat1);
 		setIdCat2(idCat2);
 		setIdCat3(idCat3);
+	}
+	
+	public Book(int idBook, String author, String name, double price, int idCat1, int idCat2, int idCat3, int qty) {
+		setIdBook(idBook);
+		setAuthor(author);
+		setName(name);
+		setPrice(price);
+		setIdCat1(idCat1);
+		setIdCat2(idCat2);
+		setIdCat3(idCat3);
+		setQty(qty);
 	}
 	
 	/**
@@ -111,6 +124,14 @@ public class Book {
 		this.idCat3 = idCat3;
 	}
 
+	public int getQty() {
+		return qty;
+	}
+
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+
 	@Override
 	public String toString() {
 		String str ="Book [idBook=" + idBook + ", author=" + author + ", name=" + name + ", price=" + price;
@@ -131,5 +152,4 @@ public class Book {
 		
 		return str;
 	}
-	
 }
