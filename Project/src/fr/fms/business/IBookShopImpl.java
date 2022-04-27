@@ -47,14 +47,16 @@ public class IBookShopImpl implements IBookShop {
 	}
 
 	@Override
-	public void removeFromCart(int idBook) {
+	public boolean removeFromCart(int idBook) {
 		Book book = cart.get(idBook);
 		
 		if(book != null) {
 			if(book.getQty() == 1)	cart.remove(idBook);
 			else book.setQty(book.getQty() -1);
+			return true;
 		}	
 		
+		return false;
 	}
 
 	@Override
@@ -126,7 +128,25 @@ public class IBookShopImpl implements IBookShop {
 		return total[0];
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return name of category
+	 */
 	public String getCatNameById(int id) {
 		return categoryDao.read(id).getName();
+	}
+	
+	/**
+	 * check if login & pwd correspon to a user u=in DB
+	 * @param log
+	 * @param pwd
+	 * @return id de l'utilisateur, 0 si non trouvé
+	 */
+	public int existUser(String log, String pwd) {
+		for(User user : userDao.readAll())
+			if(user.getLogin().equalsIgnoreCase(log) && user.getPassword().equals(pwd))
+				return user.getIdUser();
+		return 0;
 	}
 }

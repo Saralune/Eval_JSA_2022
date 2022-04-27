@@ -90,6 +90,11 @@ public class BookDao implements Dao<Book> {
 		return books;
 	}
 	
+	/**
+	 * Return a list of all books available in a category
+	 * @param idCat
+	 * @return ArrayList of Books
+	 */
 	public ArrayList<Book> readAllByCat(int idCat) {
 		ArrayList<Book> books = new ArrayList<Book>();
 		

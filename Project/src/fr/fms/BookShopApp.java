@@ -7,6 +7,10 @@ import java.util.Collections;
 import java.util.Scanner;
 
 import fr.fms.business.IBookShopImpl;
+import fr.fms.dao.BookDao;
+import fr.fms.dao.UserDao;
+import fr.fms.entities.Book;
+import fr.fms.entities.User;
 
 /**
  * @author Stagiaires10P
@@ -38,18 +42,23 @@ public class BookShopApp {
 				break;
 				
 			case 3: 
+				addBookToCart();
 				break;
 				
 			case 4:
+				deleteFromCart();
 				break;
 				
 			case 5:
+				order();
 				break;
 				
 			case 6:
+				connection();
 				break;
 				
 			case 7:
+				System.out.println("Au revoir !");
 				break;
 				
 			}
@@ -61,7 +70,7 @@ public class BookShopApp {
 	 * Print menu choices 
 	 */
 	public static void displayMenu() {
-		if(login != null)	System.out.print("Compte : " + login);
+		//if(login != null)	System.out.print("Compte : " + login);
 		
 		System.out.println("\nQue souhaitez-vous faire ?");
 		System.out.println("1. Visualiser tous les livres disponibles.");
@@ -149,4 +158,129 @@ public class BookShopApp {
 		System.out.println(String.join("", Collections.nCopies(29, "-")));
 	}
 
+	/**
+	 * Add book to cart
+	 */
+	public static void addBookToCart() {
+		displayBooks();
+		System.out.println("Quel livre souhaitez-vous ajouter ? Merci d'indiquer la référence.");
+		
+		int answer = scanInt();
+		
+		if(answer <= business.readBooks().size()) {
+			if(business.getBookById(answer) != null) {
+				business.addToCart(business.getBookById(answer));
+				displayCart();
+			} 
+		} else {
+			System.out.println("Le livre demandé n'existe pas.");
+		}
+		
+	}
+	
+	/**
+	 * Remove a book from cart 
+	 */
+	public static void deleteFromCart() {
+		displayCart();
+		
+		if(!business.getCart().isEmpty()) {
+			System.out.println("Quel livre souhaitez-vous supprimer ?");
+		
+			int answer = scanInt();
+		
+			if(answer <= business.readBooks().size() && answer > 0) {
+				//if answer of user exists in cart, it removes it
+				boolean bool = false;
+				for (int j = 0; j < business.getCart().size(); j++) {
+					if(business.getCart().get(j).getIdBook() == answer) {
+						business.removeFromCart(answer);
+						System.out.println("Le livre \"" + business.getBookById(answer).getName() + "\" a bien été supprimé.");
+						displayCart();
+						bool = true;
+					}
+				}
+				
+				if(!bool) {
+					System.out.println("Le livre demandé n'est pas dans votre panier.");
+				}
+			}
+			else {
+				System.out.println("Le livre demandé n'est pas présent dans votre panier.");
+			}
+			
+		} 
+	}
+	
+	/**
+	 * print cart
+	 */
+	public static void displayCart(){
+		String format  = "%1$-4s | %2$-20s | %3$-30s | %4$-6s | %5$-8s | %6$-10s |\n";
+		
+		if(!business.getCart().isEmpty()) {
+			System.out.println(String.join("", Collections.nCopies(95, "-")));
+			System.out.format(format, "REF", "AUTEUR", "NOM", "PRIX", "QUANTITE", "PRIX TOTAL");
+			System.out.format(format, "----", String.join("", Collections.nCopies(20, "-")), String.join("", Collections.nCopies(30, "-")), "------", "--------", "----------");
+			
+			
+			business.getCart().forEach((n) -> 
+			System.out.format(format, n.getIdBook(), n.getAuthor(), n.getName(), n.getPrice() + "€", n.getQty(), n.getPrice() * n.getQty() + "€")); //+ "\n" + String.join("", Collections.nCopies(71, "-"))
+			
+			System.out.println(String.join("", Collections.nCopies(95, "-")));
+		} else {
+			System.out.println("Votre panier est vide.");
+		}
+	}
+	
+	/**
+	 * method to display cart + amount of order, and allow user connected to valid his order
+	 */
+	public static void order() {
+		displayCart();
+		System.out.println("Le total de votre panier est de : " + business.getTotal() + "€.");
+		
+		if(!business.getCart().isEmpty()) {
+			
+			if(login == null) {
+				connection();
+			} 
+			
+			if(login != null) {
+				System.out.println("Souhaitez-vous confirmer la commande ? Pour valider, taper oui, sinon, vous serez renvoyé au menu principal.");
+				
+				String answer = scan.next();
+				
+				if(answer.equalsIgnoreCase("oui")) {
+					System.out.println("Votre commande a bien été validée.");
+					business.resetCart();
+				}
+			}
+			
+		}
+	}
+	
+	/**
+	 * connect user
+	 */
+	private static void connection() {
+		if(login != null)	System.out.println("Vous êtes déjà connecté(e) !");
+		
+		else {
+			System.out.println("saisissez votre login : ");
+			String log = scan.next();
+			
+			System.out.println("saisissez votre password : ");
+			String pwd = scan.next();
+			
+			int id = business.existUser(log, pwd);
+			
+			if(id > 0)	{
+				login = log;
+				idUser = id;
+			}
+			
+			else System.out.println("Login ou mot de passe incorrect.");
+		}
+	}
 }

@@ -24,8 +24,9 @@ public interface IBookShop {
 	/**
 	 * This remove book (found by id) from cart
 	 * @param idBook
+	 * @return boolean
 	 */
-	public void removeFromCart(int idBook);
+	public boolean removeFromCart(int idBook);
 	
 	/**
 	 * this method is used when user wants to validate is order
