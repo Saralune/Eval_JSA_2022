@@ -108,3 +108,7 @@ INSERT INTO book (author, book_name, price, id_cat1, id_cat2)
 	VALUES ("Byron Barton", "La voiture", 5.5, 2, 4);
 	
 SELECT * FROM u_order;
+SELECT * FROM user;
+SELECT * FROM order_detail WHERE id_order = 1;
+SELECT * FROM order_detail WHERE id_order = 7;
+SELECT * from order_detail;

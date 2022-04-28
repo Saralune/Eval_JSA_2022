@@ -134,7 +134,7 @@ public class User {
 
 
 	/**
-	 * @param tel the tel to set
+	 * @param tel to set
 	 */
 	public void setTel(String tel) {
 		this.tel = tel;
@@ -150,7 +150,7 @@ public class User {
 
 
 	/**
-	 * @param address the address to set
+	 * @param address : the address to set
 	 */
 	public void setAddress(String address) {
 		this.address = address;

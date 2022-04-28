@@ -1,5 +1,6 @@
 /**
- * 
+ * Application : Book Shop
+ * @author Sara Lefort - 2022
  */
 package fr.fms;
 
@@ -7,9 +8,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 import fr.fms.business.IBookShopImpl;
-import fr.fms.dao.BookDao;
 import fr.fms.dao.UserDao;
-import fr.fms.entities.Book;
 import fr.fms.entities.User;
 
 /**
@@ -69,9 +68,7 @@ public class BookShopApp {
 	/**
 	 * Print menu choices 
 	 */
-	public static void displayMenu() {
-		//if(login != null)	System.out.print("Compte : " + login);
-		
+	public static void displayMenu() {	
 		System.out.println("\nQue souhaitez-vous faire ?");
 		System.out.println("1. Visualiser tous les livres disponibles.");
 		System.out.println("2. Visualiser tous les livres d'une catégorie.");
@@ -80,7 +77,6 @@ public class BookShopApp {
 		System.out.println("5. Voir le panier et passer commande.");
 		System.out.println("6. Connexion au compte.");
 		System.out.println("7. Quitter l'application.");
-		
 	}
 
 	/**
@@ -238,9 +234,9 @@ public class BookShopApp {
 	 */
 	public static void order() {
 		displayCart();
-		System.out.println("Le total de votre panier est de : " + business.getTotal() + "€.");
 		
 		if(!business.getCart().isEmpty()) {
+			System.out.println("Le total de votre panier est de : " + business.getTotal() + "€.");
 			
 			if(login == null) {
 				connection();
@@ -265,7 +261,10 @@ public class BookShopApp {
 	 * connect user
 	 */
 	private static void connection() {
-		if(login != null)	System.out.println("Vous êtes déjà connecté(e) !");
+		if(login != null) {
+			User us = business.getUserById(idUser);
+			System.out.println("Vous êtes déjà connecté(e) " + us.getFirstName() + " " + us.getName() + " !");
+		}
 		
 		else {
 			System.out.println("saisissez votre login : ");
@@ -279,22 +278,20 @@ public class BookShopApp {
 			if(id > 0)	{
 				login = log;
 				idUser = id;
+			} else {
+				System.out.println("Login ou mot de passe incorrect. Souhaitez-vous créer un compte ? Taper oui pour créer un compte.");
+				String answer = scan.next();
+				
+				if(answer.equalsIgnoreCase("oui")) {
+					createAccountUser();
+				}
 			}
-			else {
-				System.out.println("Login ou mot de passe incorrect.");
-			}
-			
-//			else {
-//				System.out.println("Login ou mot de passe incorrect. Souhaitez-vous créer un compte ? Taper oui pour créer un compte.");
-//				String answer = scan.next();
-//				
-//				if(answer.equalsIgnoreCase("oui")) {
-//					createAccountUser();
-//				}
-//			}
 		}
 	}
 	
+	/**
+	 * method that creates a user if he doesn't exists in DB
+	 */
 	public static void createAccountUser() {
 		System.out.println("Saisir votre nom : ");
 		String name = scan.next();
@@ -303,24 +300,29 @@ public class BookShopApp {
 		String firstName = scan.next();
 		
 		System.out.println("Saisir votre login : ");
-		String login = scan.next();
+		String log = scan.next();
 		
 		System.out.println("Saisir votre mot de passe : ");
 		String password = scan.next();
 		
 		System.out.println("Saisir votre email : ");
 		String email = scan.next();
+		//Placer ici votre regex
 		
 		System.out.println("Saisir votre téléphone : ");
 		String tel = scan.next();
 		
 		System.out.println("Saisir votre adresse : ");
-		String address = scan.next();
+		scan.nextLine();
+		String address = scan.nextLine(); //????
 		
-		User user = new User(login, password, name, firstName, email, tel, address);
+		User user = new User(log, password, name, firstName, email, tel, address);
 		business.createUser(user);
+				
+		login = log;
+		idUser = business.existUser(log, password);
 		
-		if(business.createUser(user)) {
+		if(business.existUser(log, password) > 0) {
 			System.out.println("Votre compte a bien été créé.");
 		}
 	}
