@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.Scanner;
 
 import fr.fms.business.IBookShopImpl;
-import fr.fms.dao.UserDao;
 import fr.fms.entities.User;
 
 /**
@@ -32,37 +31,35 @@ public class BookShopApp {
 			choice = scanInt();
 			
 			switch(choice) {
-			case 1:
-				displayBooks();
-				break;
-				
-			case 2:
-				displayBooksInCat();
-				break;
-				
-			case 3: 
-				addBookToCart();
-				break;
-				
-			case 4:
-				deleteFromCart();
-				break;
-				
-			case 5:
-				order();
-				break;
-				
-			case 6:
-				connection();
-				break;
-				
-			case 7:
-				System.out.println("Au revoir !");
-				break;
-				
+				case 1:
+					displayBooks();
+					break;
+					
+				case 2:
+					displayBooksInCat();
+					break;
+					
+				case 3: 
+					addBookToCart();
+					break;
+					
+				case 4:
+					deleteFromCart();
+					break;
+					
+				case 5:
+					order();
+					break;
+					
+				case 6:
+					connection();
+					break;
+					
+				case 7:
+					System.out.println("Au revoir !");
+					break;
 			}
-		}
-		
+		}	
 	}
 	
 	/**
@@ -135,7 +132,6 @@ public class BookShopApp {
 		} else {
 			System.out.println("Cette catégorie n'existe pas ou ne contient pas de livres.");
 		}
-		
 	}
 	
 	/**
@@ -170,8 +166,7 @@ public class BookShopApp {
 			} 
 		} else {
 			System.out.println("Le livre demandé n'existe pas.");
-		}
-		
+		}	
 	}
 	
 	/**
@@ -186,8 +181,9 @@ public class BookShopApp {
 			int answer = scanInt();
 		
 			if(answer <= business.readBooks().size() && answer > 0) {
+				boolean bool = false; //used to check if book is in cart. If it's in cart removev, bool = true
+				
 				//if answer of user exists in cart, it removes it
-				boolean bool = false;
 				for (int j = 0; j < business.getCart().size(); j++) {
 					if(business.getCart().get(j).getIdBook() == answer) {
 						business.removeFromCart(answer);
@@ -209,7 +205,8 @@ public class BookShopApp {
 	}
 	
 	/**
-	 * print cart
+	 * Print cart.
+	 * If cart is empty, user is informed about that.
 	 */
 	public static void displayCart(){
 		String format  = "%1$-4s | %2$-20s | %3$-30s | %4$-6s | %5$-8s | %6$-10s |\n";
@@ -219,7 +216,7 @@ public class BookShopApp {
 			System.out.format(format, "REF", "AUTEUR", "NOM", "PRIX", "QUANTITE", "PRIX TOTAL");
 			System.out.format(format, "----", String.join("", Collections.nCopies(20, "-")), String.join("", Collections.nCopies(30, "-")), "------", "--------", "----------");
 			
-			
+			//loop foreach to print each line of cart (books and quantities)
 			business.getCart().forEach((n) -> 
 			System.out.format(format, n.getIdBook(), n.getAuthor(), n.getName(), n.getPrice() + "€", n.getQty(), n.getPrice() * n.getQty() + "€")); //+ "\n" + String.join("", Collections.nCopies(71, "-"))
 			
@@ -230,7 +227,8 @@ public class BookShopApp {
 	}
 	
 	/**
-	 * method to display cart + amount of order, and allow user connected to valid his order
+	 * Method to display cart + amount of order, and allow user connected to valid his order.
+	 * If user is not connected, the application propose him to create an account.
 	 */
 	public static void order() {
 		displayCart();
@@ -278,6 +276,7 @@ public class BookShopApp {
 			if(id > 0)	{
 				login = log;
 				idUser = id;
+				
 			} else {
 				System.out.println("Login ou mot de passe incorrect. Souhaitez-vous créer un compte ? Taper oui pour créer un compte.");
 				String answer = scan.next();
@@ -305,29 +304,37 @@ public class BookShopApp {
 		System.out.println("Saisir votre mot de passe : ");
 		String password = scan.next();
 		
+		String patternMail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,6}$";
 		System.out.println("Saisir votre email : ");
 		String email = scan.next();
 		
-		String pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,6}$";
-		if(email.matches(pattern)) {
-			System.out.println("Saisir votre téléphone : ");
-			String tel = scan.next();
-			
-			System.out.println("Saisir votre adresse : ");
-			scan.nextLine();
-			String address = scan.nextLine(); //????
-			
-			User user = new User(log, password, name, firstName, email, tel, address);
-			business.createUser(user);
-					
-			login = log;
-			idUser = business.existUser(log, password);
-			
-			if(business.existUser(log, password) > 0) {
-				System.out.println("Votre compte a bien été créé.");
-			}
-		} else {
+		while(!email.matches(patternMail)) {
 			System.out.println("Votre adresse mail doit être sous la forme : exemple@mail.fr");
+			email = scan.next();
 		}
+
+		String patternTel = "^[+0-9]{1,3}[0-9]{9}$";
+		System.out.println("Saisir votre téléphone : ");
+		String tel = scan.next();
+		
+		while(!tel.matches(patternTel)) {
+			System.out.println("Votre numéro doit être composé de 10 chiffres ou être sous la forme +33 suivi de 9 chiffres.");
+			tel = scan.next();
+		}
+		
+		System.out.println("Saisir votre adresse : ");
+		scan.nextLine();
+		String address = scan.nextLine();
+		
+		User user = new User(log, password, name, firstName, email, tel, address);
+		business.createUser(user);
+				
+		login = log;
+		idUser = business.existUser(log, password);
+		
+		if(business.existUser(log, password) > 0) {
+			System.out.println("Votre compte a bien été créé.");
+		}
+
 	}
 }
