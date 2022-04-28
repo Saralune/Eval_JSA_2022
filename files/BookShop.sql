@@ -18,7 +18,7 @@ CREATE TABLE category(
 );
 
 CREATE TABLE user (
-	user		int(4) PRIMARY KEY AUTO_INCREMENT,
+	id_user		int(4) PRIMARY KEY AUTO_INCREMENT,
 	login			varchar(30)	NOT NULL,
 	pwd			varchar(30)	NOT NULL,
 	user_name	varchar(30)	NOT NULL,
@@ -29,7 +29,6 @@ CREATE TABLE user (
 );
 
 CREATE TABLE admin (
-	
 );
 
 CREATE TABLE u_order(
@@ -40,7 +39,7 @@ CREATE TABLE u_order(
 );
 
 alter table u_order drop COLUMN date;
-ALTER TABLE u_order ADD date_order DATETime NOT NULL AFTER amount;
+ALTER TABLE u_order ADD date_order DATE NOT NULL AFTER amount;
 ALTER TABLE u_order ADD FOREIGN KEY (id_user) REFERENCES user(id_user);
 
 SELECT * FROM u_order;
@@ -106,9 +105,15 @@ INSERT INTO book (author, book_name, price, id_cat1, id_cat2, id_cat3)
 	VALUES ("Anonyme", "Santa Mondega", 23, 1, 7, 11);
 INSERT INTO book (author, book_name, price, id_cat1, id_cat2) 
 	VALUES ("Byron Barton", "La voiture", 5.5, 2, 4);
+INSERT INTO book (author, book_name, price, id_cat1, id_cat2, id_cat3) 
+	VALUES ("J.R. Tolkien", "Le seigneur des anneaux", 32, 7, 9, 11);
+INSERT INTO book (author, book_name, price, id_cat1, id_cat2, id_cat3) 
+	VALUES ("Cyril Lignac", "La cuisine croquante", 5, 2, 5, 10);
 	
 SELECT * FROM u_order;
 SELECT * FROM user;
+SELECT * FROM category;
+SELECT * FROM book;
 SELECT * FROM order_detail WHERE id_order = 1;
 SELECT * FROM order_detail WHERE id_order = 7;
 SELECT * from order_detail;

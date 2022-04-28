@@ -16,23 +16,22 @@ import fr.fms.entities.OrderDetail;
 public interface IBookShop {
 	
 	/**
-	 * method to add a book on the user cart
+	 * Method to add a book on the user cart.
 	 * @param book 
 	 */
 	public void addToCart(Book book);
 	
 	/**
-	 * This remove book (found by id) from cart
+	 * This remove book (found by id) from cart.
 	 * @param idBook
 	 * @return boolean
 	 */
 	public boolean removeFromCart(int idBook);
 	
 	/**
-	 * this method is used when user wants to validate is order
+	 * This method is used when user wants to validate is order :
 	 * - method checks if user exists in DB
-	 * - it checks payment info of user
-	 * - it creates order in DB
+	 * - it creates order and order detail in DB
 	 * - it remove items from cart
 	 * @param idUser
 	 * @return boolean
