@@ -3,7 +3,6 @@
  */
 package fr.fms;
 
-import java.util.Date;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
@@ -15,7 +14,6 @@ import fr.fms.dao.OrderDetailDao;
 import fr.fms.dao.UserDao;
 import fr.fms.entities.Book;
 import fr.fms.entities.Order;
-import fr.fms.entities.OrderDetail;
 import fr.fms.entities.User;
 
 /**
@@ -49,7 +47,9 @@ public class TestBookShopApp {
 		System.out.println(new OrderDetailDao().readAll());
 	}
 
-	//display all users from DB
+	/**
+	 * display all users from DB
+	 */
 	private static void testUserDao() {
 		UserDao userDao = new UserDao();
 		
@@ -57,7 +57,9 @@ public class TestBookShopApp {
 			System.out.println(user);
 	}
 	
-	//check if user exists in DB and display list of books if he exists
+	/**
+	 * check if user exists in DB and display list of books if he exists
+	 */
 	private static void testUserBook() {
 		Scanner scan = new Scanner(System.in);
 		
@@ -79,7 +81,9 @@ public class TestBookShopApp {
 		scan.close();
 	}
 	
-	//test CRUD : BookDao
+	/**
+	 * test CRUD : BookDao
+	 */
 	private static void testBookDao() {
 		BookDao bookDao = new BookDao();
 		
@@ -109,7 +113,9 @@ public class TestBookShopApp {
 		
 	}
 	
-	//test notre fabrique à objet ou composant d'accès
+	/**
+	 * Test creation of dao elements
+	 */
 	private static void testDaoFactory() {
 		Dao<User> userDao = DaoFactory.getUserDao();
 			

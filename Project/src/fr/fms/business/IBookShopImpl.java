@@ -1,5 +1,5 @@
 /**
- * 
+ * Business implementation
  */
 package fr.fms.business;
 
@@ -66,9 +66,9 @@ public class IBookShopImpl implements IBookShop {
 			
 			Order order = new Order(total, new Date(), idUser);
 			
-			if(orderDao.create(order)) {	//ajout en base de la commande
+			if(orderDao.create(order)) {	//add order in DB
 				
-				for(Book book : cart.values()) {	//ajout des commandes minifiées associées
+				for(Book book : cart.values()) {	//add order detail in DB
 					orderDetailDao.create(new OrderDetail(order.getIdOrder(), order.getIdUser(), book.getIdBook(), book.getName(), book.getQty(), order.getDateOrder(), book.getPrice()));
 				}
 				return true;
@@ -120,7 +120,7 @@ public class IBookShopImpl implements IBookShop {
 	}
 	
 	/**
-	 * renvoi le total de la commande en cours
+	 * return the total amount of order
 	 * @return total
 	 */
 	public double getTotal() {
@@ -151,7 +151,21 @@ public class IBookShopImpl implements IBookShop {
 		return 0;
 	}
 	
+	/**
+	 * Create user in DB
+	 * @param user
+	 * @return true if created, false if not
+	 */
 	public boolean createUser(User user) {
 		return userDao.create(user);
+	}
+	
+	/**
+	 * Return user who corresponds to id, in DB.
+	 * @param id
+	 * @return user
+	 */
+	public User getUserById(int id) {
+		return userDao.read(id);
 	}
 }

@@ -108,6 +108,11 @@ public class OrderDetailDao implements Dao<OrderDetail> {
 		return orderDetail;
 	}
 
+	/**
+	 * Method that returns the detail of order, catch by id.
+	 * @param id of order
+	 * @return ArrayList of books ordered
+	 */
 	public ArrayList<OrderDetail> readOneOrder(int id) {
 		ArrayList<OrderDetail> order = new ArrayList<OrderDetail>();
 		
